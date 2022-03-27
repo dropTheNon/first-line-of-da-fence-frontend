@@ -1,9 +1,13 @@
 import React from 'react';
 import AuthService from './Auth';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     const [username, setUserName] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [name, setName] = React.useState("");
+
+    let navigate = useNavigate();
 
     const signUserUp = (e) => {
         e.preventDefault();
@@ -11,7 +15,9 @@ const Signup = () => {
         .then((createdUser) => {
             setUserName("");
             setPassword("");
+            setName("");
             console.log("createdUser from Signup.js", createdUser);
+            navigate("/home");
         })
         .catch((err) => {
             console.log(err.message);
@@ -28,6 +34,12 @@ const Signup = () => {
                     value={username}
                     onChange={(e) => setUserName(e.target.value)}
                 />
+                <label htmlFor="name">Name</label>
+                <input
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
                 <label htmlFor="password">Password</label>
                 <input
                     name="password"
@@ -35,7 +47,7 @@ const Signup = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <p>Password must be at least 6 characters and contain both upper- and lower-case letters, as well as at least one number</p>
-                <button type="submit" className="btn btn-submit">Submit</button>
+                <button type="submit" className="btn btn-success">Signup</button>
             </form>
         </div>
     );

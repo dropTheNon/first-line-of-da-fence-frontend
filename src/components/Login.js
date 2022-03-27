@@ -9,7 +9,7 @@ const Login = () => {
         e.preventDefault();
         AuthService.login(username, password)
         .then((loggedInUser) => {
-            console.log("loggedInUser from Login.js", loggedInUser);
+            console.log("logged in User: ", loggedInUser);
         })
         .catch((err) => {
             console.log(err.message);
@@ -32,7 +32,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit" className="btn btn-submit">Login</button>
+                <button type="submit" className="btn btn-success">Login</button>
             </form>
         </div>
     );

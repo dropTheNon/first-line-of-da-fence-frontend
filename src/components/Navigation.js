@@ -1,7 +1,22 @@
 import React from 'react';
 import AuthService from './Auth';
+import { useEffect } from 'react';
 
 const Navigation = () => {
+
+    const [userLoggedIn, setUserLoggedIn] = React.useState(false);
+
+    React.useEffect(() => {
+        AuthService.isLoggedIn()
+            .then((result) => {
+                if (result.user) {
+                    setUserLoggedIn(true);
+                }
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }, [userLoggedIn]);
 
     return (
         <div>
@@ -28,15 +43,27 @@ const Navigation = () => {
                         <li className="nav-item">
                             <a className="nav-link" href="/users">Users</a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/api/auth/signup">Signup</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/api/auth/login">Login</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/api/auth/logout">Logout</a>
-                        </li>
+                        { !userLoggedIn && 
+                            <div>
+                                <div>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/api/auth/signup">Signup</a>
+                                    </li>
+                                </div>
+                                <div>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/api/auth/login">Login</a>
+                                    </li>
+                                </div>
+                            </div>
+                        }
+                        { userLoggedIn &&
+                            <div>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/api/auth/logout">Logout</a>
+                                </li>
+                            </div>
+                        }
                     </ul>
                     <form name="search-form" id="search-form" className="form-inline my-2 my-lg-0">
                         <input name="search" className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>

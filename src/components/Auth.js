@@ -28,7 +28,6 @@ const AuthService = {
            password: password, 
         })
         .then((results) => {
-            console.log("results.data from Auth.js", results.data);
             return results.data;
         });
     },
@@ -36,7 +35,6 @@ const AuthService = {
     logout: () => {
         return service.post("/api/auth/logout")
         .then((results) => {
-            console.log(results.data);
             return results.data;
         });
     },
@@ -44,7 +42,6 @@ const AuthService = {
     isLoggedIn: () => {
         return service.get("/api/auth/loggedin")
         .then((results) => {
-            console.log(results.data);
             return results.data;
         });
     },
@@ -58,6 +55,12 @@ const AuthService = {
             return results.data;
         });
     },
+    getLead: (leadId) => {
+        return service.get("/leads/lead/" + leadId)
+        .then((result) => {
+            return result.data.leadFromDB;
+        });
+    },
     getCreateLeadForm: () => {
         return service.get("/leads/create")
         .then(() => {
@@ -66,12 +69,34 @@ const AuthService = {
     },
     createNewLead: (body) => {
         return service.post("/leads/create", body)
-        .then((createdLead) => {
-            console.log("New lead created: ", createdLead);
-            return createdLead;
+        .then((result) => {
+            console.log("New lead created: ", result.data);
+            return result.data.createdLead;
+        });
+    },
+    updateLead: (body) => {
+        return service.post("/leads/update/" + body._id, body)
+        .then((result) => {
+            console.log("Lead updated: ", result.data.updatedLead);
+            return result.data.updatedLead;
+        });
+    },
+    deleteLead: (leadId) => {
+        return service.post("/leads/delete" + leadId)
+        .then(() => {
+            console.log("Lead deleted!");
+            return;
+        })
+    },
+
+    // #######  matching users.js routes #######
+    getUser: (userId) => {
+        return service.get("/users/user/" + userId)
+        .then((result) => {
+            console.log("Found user: ", result.data.userFromDB);
+            return result.data.userFromDB;
         });
     }
-
 }
 
 export default AuthService;

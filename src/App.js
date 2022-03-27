@@ -10,6 +10,8 @@ import Logout from './components/Logout';
 import Home from './components/Home';
 import Leads from './components/Leads';
 import Projects from './components/Projects';
+import CreateLeads from './components/CreateLead';
+import Lead from './components/Lead';
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
         <Route path="/api/auth/signup" element={<Signup />} />
         <Route path="/api/auth/logout" element={<Logout />} />
         <Route path="/leads" element={<Leads />} />
+        <Route path="/leads/create" element={<CreateLeads />} />
+        <Route path="/leads/lead/:leadId" element={<Lead />} />
         <Route path="/projects" element={<Projects />} />
       </Routes>
     </div>

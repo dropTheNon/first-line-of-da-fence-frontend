@@ -1,15 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import AuthService from './Auth';
 
 const Login = () => {
     const [username, setUserName] = React.useState("NextTest");
     const [password, setPassword] = React.useState("Password123!");
 
+    let navigate = useNavigate();
+
     const logUserIn = (e) => {
         e.preventDefault();
         AuthService.login(username, password)
         .then((loggedInUser) => {
             console.log("logged in User: ", loggedInUser);
+            navigate("/leads/");
         })
         .catch((err) => {
             console.log(err.message);

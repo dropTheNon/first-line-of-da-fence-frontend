@@ -11,13 +11,13 @@ const Signup = () => {
 
     const signUserUp = (e) => {
         e.preventDefault();
-        AuthService.signup(username, password)
+        AuthService.signup(username, password, name)
         .then((createdUser) => {
             setUserName("");
             setPassword("");
             setName("");
             console.log("createdUser from Signup.js", createdUser);
-            navigate("/home");
+            navigate("/");
         })
         .catch((err) => {
             console.log(err.message);

@@ -9,11 +9,12 @@ const service = axios.create({
 const AuthService = {
 
     // #######  matching auth.routes.js routes #######
-    signup: (username, password) => {
+    signup: (username, password, name) => {
         return service
         .post("/api/auth/signup", {
             username: username,
             password: password,
+            name: name,
         })
         .then((results) => {
             console.log(results.data);
@@ -51,7 +52,6 @@ const AuthService = {
     getAllLeads: () => {
         return service.get("/leads/")
         .then((results) => {
-            console.log(results.data);
             return results.data;
         });
     },
@@ -70,13 +70,16 @@ const AuthService = {
     createNewLead: (body) => {
         return service.post("/leads/create", body)
         .then((result) => {
+            console.log("result: ", result);
             console.log("New lead created: ", result.data);
             return result.data.createdLead;
         });
     },
     updateLead: (body) => {
-        return service.post("/leads/update/" + body._id, body)
+        let updateLeadURL = "/leads/update/" + body.leadId;
+        return service.post(updateLeadURL, body)
         .then((result) => {
+            console.log("result: ", result);
             console.log("Lead updated: ", result.data.updatedLead);
             return result.data.updatedLead;
         });
@@ -95,6 +98,18 @@ const AuthService = {
         .then((result) => {
             console.log("Found user: ", result.data.userFromDB);
             return result.data.userFromDB;
+        });
+    },
+    getAllUsers: () => {
+        return service.get("/admin/")
+        .then((result) => {
+            return result;
+        });
+    },
+    updateUser: (body) => {
+        return service.post("/admin/update/user/" + body.userId, body)
+        .then((result) => {
+            return result.data.updatedUser;
         });
     }
 }

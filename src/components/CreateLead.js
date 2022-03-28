@@ -38,7 +38,7 @@ const CreateLead = () => {
         })
         .then((createdLead) => {
             console.log("created Lead from Leads.js: ", createdLead);
-            navigate("/");
+            navigate("/leads/");
         })
         .catch((err) => {
             console.log(err.message);
@@ -130,7 +130,26 @@ const CreateLead = () => {
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                 />
-                <button type="submit" className="btn btn-submit">Create Lead</button>
+                 {/* Radio buttons copied from UpdateUser to modify to select Estimator */}
+                 {/* Will need to do a User.find({level = "Estimator" or whatever}), then */}
+                 {/* do a estimators.map((estimator)=>{}) to create radio buttons with  */}
+                 {/* estimator's name and User._id (for value) */}
+                
+                {/* <div>
+                    <input type="radio" value="Admin"
+                        onChange={setLevel} name="level"/>
+                    <label htmlFor="level">Admin</label>
+                    <input type="radio" value="Estimator"
+                        onChange={setLevel} name="level"/>
+                    <label htmlFor="level">Estimator</label>
+                    <input type="radio" value="Foreman"
+                        onChange={setLevel} name="level"/>
+                    <label htmlFor="level">Foreman</label>
+                    <input type="radio" value="Helper"
+                        onChange={setLevel} name="level"/>
+                    <label htmlFor="level">Helper</label>
+                </div> */}
+                <button type="submit" className="btn btn-success">Create Lead</button>
             </form>
         </div>
     );

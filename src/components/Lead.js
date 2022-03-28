@@ -17,16 +17,16 @@ const Lead = () => {
     const [billingAddressZipcode, setBillingAddressZipcode] = React.useState("");
     const [contactName, setContactName] = React.useState("");
     const [notes, setNotes] = React.useState("");
-    const [estimator, setEstimator] = React.useState("");
+    // const [estimator, setEstimator] = React.useState("");
 
     const params = useParams();
-    let leadId = params.leadId;
+    const leadId = params.leadId;
     let navigate = useNavigate();
 
     // GET Lead by Id, set values of state
     React.useEffect(() => {
 
-        AuthService.getLead(params.leadId)
+        AuthService.getLead(leadId)
         .then((leadFromDB) => {
             setName(leadFromDB.name);
             setPhoneNumber(leadFromDB.phoneNumber);
@@ -42,13 +42,14 @@ const Lead = () => {
             setContactName(leadFromDB.contactName);
             setNotes(leadFromDB.notes);
             
-            AuthService.getUser(leadFromDB.estimator[0])
-            .then((result) => {
-                setEstimator(result.data.userFromDB.name);
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
+            // AuthService.getUser(leadFromDB.estimator[0])
+            // .then((result) => {
+            //     console.log(result.data.userFromDB.name);
+            //     setEstimator(result.data.userFromDB.name);
+            // })
+            // .catch((err) => {
+            //     console.log(err.message);
+            // });
         })
         .catch((err) => {
             console.log(err.message);
@@ -60,7 +61,26 @@ const Lead = () => {
     const editLead = (e) => {
         e.preventDefault();
 
-        AuthService.updateLead(e)
+        const updateLeadObj = {
+            leadId: leadId,
+            name: name,
+            phoneNumber: phoneNumber,
+            emailAddress: emailAddress,
+            addressStreet: addressStreet,
+            addressCity: addressCity,
+            addressState: addressStreet,
+            addressZipcode: addressZipcode,
+            billingAddressStreet: billingAddressStreet,
+            billingAddressCity: billingAddressCity,
+            billingAddressState: billingAddressState,
+            billingAddressZipcode: billingAddressZipcode,
+            contactName: contactName,
+            notes: notes,
+        };
+
+        console.log("updateLeadObj: ", updateLeadObj);
+
+        AuthService.updateLead(updateLeadObj)
         .then((updatedLead) => {
             console.log("Updated lead in Lead.js: ", updatedLead);
             navigate("/leads");
@@ -172,6 +192,25 @@ const Lead = () => {
                     <div className="card-footer text-muted">
                         <button type="submit" className="btn btn-success">Update Lead Info</button>
                     </div>
+                    {/* Radio buttons copied from UpdateUser to modify to select Estimator */}
+                    {/* Will need to do a User.find({level = "Estimator" or whatever}), then */}
+                    {/* do a estimators.map((estimator)=>{}) to create radio buttons with  */}
+                    {/* estimator's name and User._id (for value) */}
+                
+                    {/* <div>
+                    <input type="radio" value="Admin"
+                        onChange={setLevel} name="level"/>
+                    <label htmlFor="level">Admin</label>
+                    <input type="radio" value="Estimator"
+                        onChange={setLevel} name="level"/>
+                    <label htmlFor="level">Estimator</label>
+                    <input type="radio" value="Foreman"
+                        onChange={setLevel} name="level"/>
+                    <label htmlFor="level">Foreman</label>
+                    <input type="radio" value="Helper"
+                        onChange={setLevel} name="level"/>
+                    <label htmlFor="level">Helper</label>
+                    </div> */}
                 </form>
                 <button className="btn btn-danger" onClick={deleteThisLead}>Delete this Lead</button>
             </div>

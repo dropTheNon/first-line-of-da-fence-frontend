@@ -10,7 +10,6 @@ const Leads = () => {
     React.useEffect(() => {
         AuthService.getAllLeads()
         .then((results) => {
-            console.log(results);
             setAllLeads(results.leadsFromDB);
         })
         .catch((err) => {
@@ -21,6 +20,7 @@ const Leads = () => {
     return (
         <div>
             <h2>Leads page</h2>
+            <Link to="/leads/create" class="btn btn-success">Create New Lead</Link>
             {
                 allLeads.map((lead, i) => {
                     const updateThisLead = "/leads/update/" + lead._id; 
@@ -32,11 +32,12 @@ const Leads = () => {
                     return (
                         <div className="card" style={{width: "18rem"}} key={i}>
                             <div className="card-body">
-                                <h5 className="card-title">{lead.name}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Estimator's name will go here</h6>
-                                <p className="card-text">{lead.addressZipcode}</p>
-                                <p className="card-text">{lead.phoneNumber}</p>
-                                <p className="card-text">{lead.emailAddress}</p>
+                                <h5 className="card-title">Name: {lead.name}</h5>
+                                {/* <h6 className="card-subtitle mb-2 text-muted">Estimator's name will go here</h6> */}
+                                <p className="card-text">{lead.addressStreet}</p>
+                                <p className="card-text">{lead.addressCity}, {lead.addressState} {lead.addressZipcode}</p>
+                                <p className="card-text">Phone number: {lead.phoneNumber}</p>
+                                <p className="card-text">Email: {lead.emailAddress}</p>
                                 <a href={updateThisLead} className="card-link">Edit</a>
                                 <a href={viewThisLead} className="card-link">View Details</a>
                                 <a href={deleteThisLead} className="card-link">Delete</a>
@@ -45,7 +46,6 @@ const Leads = () => {
                         )
                 })
             }
-            <Link to="/leads/create">Create New Lead</Link>
         </div>
     );
 };

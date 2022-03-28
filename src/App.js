@@ -1,8 +1,5 @@
 import './App.css';
-import axios from "axios";
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import { Routes, Route, Link } from 'react-router-dom';
-import AuthService from './components/Auth';
+import { Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -12,6 +9,8 @@ import Leads from './components/Leads';
 import Projects from './components/Projects';
 import CreateLeads from './components/CreateLead';
 import Lead from './components/Lead';
+import UpdateUser from './components/UpdateUser';
+import AdminHome from './components/AdminHome';
 
 function App() {
 
@@ -27,6 +26,8 @@ function App() {
         <Route path="/leads/create" element={<CreateLeads />} />
         <Route path="/leads/lead/:leadId" element={<Lead />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/admin/update/user/:userId" element={<UpdateUser />} />
+        <Route path="/admin/" element={<AdminHome />} />
       </Routes>
     </div>
   );

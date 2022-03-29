@@ -41,7 +41,7 @@ const CreateLead = () => {
             navigate("/leads/");
         })
         .catch((err) => {
-            console.log(err.message);
+            console.log("error message from createNewLead catch: ", err.message);
         });
     };
 

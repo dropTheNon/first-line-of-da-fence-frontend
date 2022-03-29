@@ -13,7 +13,10 @@ const Leads = () => {
     React.useEffect(() => {
         AuthService.getAllLeads()
         .then((results) => {
-            setAllLeads(results.leadsFromDB);
+            console.log(results);
+            if (results.leadsFromDB) {
+                setAllLeads(results.leadsFromDB);
+            }
         })
         .catch((err) => {
             console.log(err.message);

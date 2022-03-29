@@ -1,9 +1,12 @@
 import React, { useReducer } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthService from './Auth';
 import CreateLead from './CreateLead';
 
+
 const Leads = () => {
+
+    let navigate = useNavigate();
 
     const [allLeads, setAllLeads] = React.useState([]);
 
@@ -17,17 +20,27 @@ const Leads = () => {
         });
     }, []);
 
+    const deleteLead = (thisLeadId) => {
+        AuthService.deleteLead(thisLeadId)
+        .then(() => {
+            let filteredArr = allLeads.filter((lead) => {
+                return lead._id !== thisLeadId;
+            });
+            setAllLeads(filteredArr);
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+    };
+
     return (
         <div>
             <h2>Leads page</h2>
-            <Link to="/leads/create" class="btn btn-success">Create New Lead</Link>
+            <Link to="/leads/create" className="btn btn-success">Create New Lead</Link>
             {
                 allLeads.map((lead, i) => {
-                    const updateThisLead = "/leads/update/" + lead._id; 
-                    const deleteThisLead = "/leads/delete/" + lead._id;
+                    const thisLeadId = lead._id;
                     const viewThisLead = "/leads/lead/" + lead._id;
-                    // Need to create an AuthService call to GET name of User.findById(lead.estimator[0]),
-                    // in order to list estimator's name on card
 
                     return (
                         <div className="card" style={{width: "18rem"}} key={i}>
@@ -38,12 +51,11 @@ const Leads = () => {
                                 <p className="card-text">{lead.addressCity}, {lead.addressState} {lead.addressZipcode}</p>
                                 <p className="card-text">Phone number: {lead.phoneNumber}</p>
                                 <p className="card-text">Email: {lead.emailAddress}</p>
-                                <a href={updateThisLead} className="card-link">Edit</a>
-                                <a href={viewThisLead} className="card-link">View Details</a>
-                                <a href={deleteThisLead} className="card-link">Delete</a>
+                                <a href={viewThisLead} className="btn btn-info">View Details</a>
+                                <button onClick={(e) => {deleteLead(thisLeadId)}} className="btn btn-danger">Delete</button>
                             </div>
                         </div>
-                        )
+                    )                
                 })
             }
         </div>

@@ -12,7 +12,6 @@ const Login = () => {
         e.preventDefault();
         AuthService.login(username, password)
         .then((loggedInUser) => {
-            console.log("logged in User: ", loggedInUser);
             navigate("/leads/");
         })
         .catch((err) => {

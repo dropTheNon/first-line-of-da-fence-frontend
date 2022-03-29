@@ -1,6 +1,9 @@
 import React from "react";
 import AuthService from "./Auth";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+
+// var axios = require('axios').default;
 
 const Lead = () => {
 
@@ -17,6 +20,7 @@ const Lead = () => {
     const [billingAddressZipcode, setBillingAddressZipcode] = React.useState("");
     const [contactName, setContactName] = React.useState("");
     const [notes, setNotes] = React.useState("");
+    const [threeDayForecast, setThreeDayForecast] = React.useState({});
     // const [estimator, setEstimator] = React.useState("");
 
     const params = useParams();
@@ -41,6 +45,40 @@ const Lead = () => {
             setBillingAddressZipcode(leadFromDB.billingAddressZipcode);
             setContactName(leadFromDB.contactName);
             setNotes(leadFromDB.notes);
+
+            const weatherAPICallOptions = {
+                method: 'GET',
+                url: 'https://weatherapi-com.p.rapidapi.com/forecast.json',
+                params: {
+                    q: leadFromDB.addressZipcode, 
+                    days: 3
+                },
+                headers: {
+                    'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com',
+                    'X-RapidAPI-Key': "fced7414e5msh403ad5088417ae1p1096e4jsn508210975e39"
+                }
+            };
+
+            console.log(weatherAPICallOptions);
+
+            axios.request(weatherAPICallOptions)
+                .then((response) => {
+                    console.log("API response: ", response.data);
+                    setThreeDayForecast({
+                        day1Text: response.data.forecast.forecastday[0].day.condition.text,
+                        day1Icon: response.data.forecast.forecastday[0].day.condition.icon,
+                        day2Text: response.data.forecast.forecastday[1].day.condition.text,
+                        day2Icon: response.data.forecast.forecastday[1].day.condition.icon,
+                        day3Text: response.data.forecast.forecastday[2].day.condition.text,
+                        day3Icon: response.data.forecast.forecastday[2].day.condition.icon,
+                    });
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                })
+                .finally(() => {
+                    console.log(threeDayForecast);
+                });
             
             // AuthService.getUser(leadFromDB.estimator[0])
             // .then((result) => {
@@ -58,6 +96,8 @@ const Lead = () => {
 
     }, []);
 
+    console.log(threeDayForecast);
+
     const editLead = (e) => {
         e.preventDefault();
 
@@ -68,7 +108,7 @@ const Lead = () => {
             emailAddress: emailAddress,
             addressStreet: addressStreet,
             addressCity: addressCity,
-            addressState: addressStreet,
+            addressState: addressState,
             addressZipcode: addressZipcode,
             billingAddressStreet: billingAddressStreet,
             billingAddressCity: billingAddressCity,
@@ -189,6 +229,9 @@ const Lead = () => {
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
                     />
+                    <div>
+                        <img src="//cdn.weatherapi.com/weather/64x64/day/176.png" alt="day 1 weather forecast icon"/>
+                    </div>
                     <div className="card-footer text-muted">
                         <button type="submit" className="btn btn-success">Update Lead Info</button>
                     </div>

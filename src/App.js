@@ -11,6 +11,7 @@ import CreateLeads from './components/CreateLead';
 import Lead from './components/Lead';
 import UpdateUser from './components/UpdateUser';
 import AdminHome from './components/AdminHome';
+import DeleteLead from './components/DeleteLead';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/admin/update/user/:userId" element={<UpdateUser />} />
         <Route path="/admin/" element={<AdminHome />} />
+        <Route path="/leads/delete/:leadId" element={<DeleteLead />} />
       </Routes>
     </div>
   );

@@ -27,7 +27,7 @@ const CreateLead = () => {
             emailAddress: emailAddress,
             addressStreet: addressStreet,
             addressCity: addressCity,
-            addressState: addressStreet,
+            addressState: addressState,
             addressZipcode: addressZipcode,
             billingAddressStreet: billingAddressStreet,
             billingAddressCity: billingAddressCity,

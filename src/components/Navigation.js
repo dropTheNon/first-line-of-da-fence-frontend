@@ -9,6 +9,7 @@ const Navigation = () => {
     React.useEffect(() => {
         AuthService.isLoggedIn()
             .then((result) => {
+                console.log("result: ", result);
                 if (result.user) {
                     setUserLoggedIn(true);
                 }
@@ -16,7 +17,7 @@ const Navigation = () => {
             .catch((err) => {
                 console.log(err.message);
             });
-    }, [userLoggedIn]);
+    }, []);
 
     return (
         <div>
@@ -64,9 +65,6 @@ const Navigation = () => {
                                 </li>
                             </div>
                         }
-                        <li className="nav-item">
-                            <a className="nav-link" href="/api/auth/logout">Logout</a>
-                        </li>
                     </ul>
                     <form name="search-form" id="search-form" className="form-inline my-2 my-lg-0">
                         <input name="search" className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>

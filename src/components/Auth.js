@@ -85,9 +85,8 @@ const AuthService = {
         });
     },
     deleteLead: (leadId) => {
-        return service.post("/leads/delete" + leadId)
+        return service.post("/leads/delete/" + leadId)
         .then(() => {
-            console.log("Lead deleted!");
             return;
         })
     },

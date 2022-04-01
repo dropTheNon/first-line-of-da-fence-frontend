@@ -142,120 +142,137 @@ const Lead = () => {
 
     return (
         <div>
-            <h2>Lead Details Page for {name}</h2>
-            <br/>
-            <div className="w-75 card text-center">
-                <div className="card-header">
-                    View and Edit Details
+            <div id="leadInfoCard">
+                <h2>Lead Details Page for {name}</h2>
+                <br/>
+                <div className="w-75 card text-center">
+                    <div className="card-header">
+                        View and Edit Details
+                    </div>
+                    <form onSubmit={editLead} name="lead-update-form">
+                        <label htmlFor="name">Name</label>
+                        <input
+                            name="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <label htmlFor="phoneNumber">Phone Number</label>
+                        <input
+                            name="phoneNumber"
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                        />
+                        <label htmlFor="emailAddress">Email Address</label>
+                        <input
+                            name="emailAddress"
+                            value={emailAddress}
+                            onChange={(e) => setEmailAddress(e.target.value)}
+                        />
+                        <h4>Project Address</h4>
+                        <label htmlFor="addressStreet">Street Address</label>
+                        <input
+                            name="addressStreet"
+                            value={addressStreet}
+                            onChange={(e) => setAddressStreet(e.target.value)}
+                        />
+                        <label htmlFor="addressCity">City</label>
+                        <input
+                            name="addressCity"
+                            value={addressCity}
+                            onChange={(e) => setAddressCity(e.target.value)}
+                        />
+                        <label htmlFor="addressState">State</label>
+                        <input
+                            name="addressState"
+                            value={addressState}
+                            onChange={(e) => setAddressState(e.target.value)}
+                        />
+                        <label htmlFor="addressZipcode">Zipcode</label>
+                        <input
+                            name="addressZipcode"
+                            value={addressZipcode}
+                            onChange={(e) => setAddressZipcode(e.target.value)}
+                        />
+                        <h4>Billing Address</h4>
+                        <label htmlFor="billingAddressStreet">Street address</label>
+                        <input
+                            name="billingAddressStreet"
+                            value={billingAddressStreet}
+                            onChange={(e) => setBillingAddressStreet(e.target.value)}
+                        />
+                        <label htmlFor="billingAddressCity">City</label>
+                        <input
+                            name="billingAddressCity"
+                            value={billingAddressCity}
+                            onChange={(e) => setBillingAddressCity(e.target.value)}
+                        />
+                        <label htmlFor="billingAddressState">State</label>
+                        <input
+                            name="billingAddressState"
+                            value={billingAddressState}
+                            onChange={(e) => setBillingAddressState(e.target.value)}
+                        />
+                        <label htmlFor="billingAddressZipcode">Zipcode</label>
+                        <input
+                            name="billingAddressZipcode"
+                            value={billingAddressZipcode}
+                            onChange={(e) => setBillingAddressZipcode(e.target.value)}
+                        />
+                        <label htmlFor="contactName">Contact Name</label>
+                        <input
+                            name="contactName"
+                            value={contactName}
+                            onChange={(e) => setContactName(e.target.value)}
+                        />
+                        <label htmlFor="notes">Notes</label>
+                        <input
+                            name="notes"
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                        />
+                        <br/>
+                        <br/>
+
+                            <h4>Next Three Days Weather</h4>
+                        <div className="row" id="weatherRow">
+                            <div>
+                                <p>{threeDayForecast.day1Text}</p>
+                                <img src={threeDayForecast.day1Icon} alt="day 1 weather forecast icon"/>
+                            </div>
+                            <div>
+                                <p>{threeDayForecast.day2Text}</p>
+                                <img src={threeDayForecast.day2Icon} alt="day 1 weather forecast icon"/>
+                            </div>
+                            <div>
+                                <p>{threeDayForecast.day3Text}</p>
+                                <img src={threeDayForecast.day3Icon} alt="day 1 weather forecast icon"/>
+                            </div>
+                        </div>
+                        <div className="card-footer text-muted">
+                            <button type="submit" className="btn btn-success btn-width">Update Lead Info</button>
+                        </div>
+                        {/* Radio buttons copied from UpdateUser to modify to select Estimator */}
+                        {/* Will need to do a User.find({level = "Estimator" or whatever}), then */}
+                        {/* do a estimators.map((estimator)=>{}) to create radio buttons with  */}
+                        {/* estimator's name and User._id (for value) */}
+                    
+                        {/* <div>
+                        <input type="radio" value="Admin"
+                            onChange={setLevel} name="level"/>
+                        <label htmlFor="level">Admin</label>
+                        <input type="radio" value="Estimator"
+                            onChange={setLevel} name="level"/>
+                        <label htmlFor="level">Estimator</label>
+                        <input type="radio" value="Foreman"
+                            onChange={setLevel} name="level"/>
+                        <label htmlFor="level">Foreman</label>
+                        <input type="radio" value="Helper"
+                            onChange={setLevel} name="level"/>
+                        <label htmlFor="level">Helper</label>
+                        </div> */}
+                    </form>
+                    <button className="btn btn-danger btn-width" onClick={deleteThisLead}>Delete this Lead</button>
                 </div>
-                <form onSubmit={editLead} name="lead-update-form">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        name="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                    <label htmlFor="phoneNumber">Phone Number</label>
-                    <input
-                        name="phoneNumber"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                    />
-                    <label htmlFor="emailAddress">Email Address</label>
-                    <input
-                        name="emailAddress"
-                        value={emailAddress}
-                        onChange={(e) => setEmailAddress(e.target.value)}
-                    />
-                    <h4>Project Address</h4>
-                    <label htmlFor="addressStreet">Street Address</label>
-                    <input
-                        name="addressStreet"
-                        value={addressStreet}
-                        onChange={(e) => setAddressStreet(e.target.value)}
-                    />
-                    <label htmlFor="addressCity">City</label>
-                    <input
-                        name="addressCity"
-                        value={addressCity}
-                        onChange={(e) => setAddressCity(e.target.value)}
-                    />
-                    <label htmlFor="addressState">State</label>
-                    <input
-                        name="addressState"
-                        value={addressState}
-                        onChange={(e) => setAddressState(e.target.value)}
-                    />
-                    <label htmlFor="addressZipcode">Zipcode</label>
-                    <input
-                        name="addressZipcode"
-                        value={addressZipcode}
-                        onChange={(e) => setAddressZipcode(e.target.value)}
-                    />
-                    <h4>Billing Address</h4>
-                    <label htmlFor="billingAddressStreet">Street address</label>
-                    <input
-                        name="billingAddressStreet"
-                        value={billingAddressStreet}
-                        onChange={(e) => setBillingAddressStreet(e.target.value)}
-                    />
-                    <label htmlFor="billingAddressCity">City</label>
-                    <input
-                        name="billingAddressCity"
-                        value={billingAddressCity}
-                        onChange={(e) => setBillingAddressCity(e.target.value)}
-                    />
-                    <label htmlFor="billingAddressState">State</label>
-                    <input
-                        name="billingAddressState"
-                        value={billingAddressState}
-                        onChange={(e) => setBillingAddressState(e.target.value)}
-                    />
-                    <label htmlFor="billingAddressZipcode">Zipcode</label>
-                    <input
-                        name="billingAddressZipcode"
-                        value={billingAddressZipcode}
-                        onChange={(e) => setBillingAddressZipcode(e.target.value)}
-                    />
-                    <label htmlFor="contactName">Contact Name</label>
-                    <input
-                        name="contactName"
-                        value={contactName}
-                        onChange={(e) => setContactName(e.target.value)}
-                    />
-                    <label htmlFor="notes">Notes</label>
-                    <input
-                        name="notes"
-                        value={notes}
-                        onChange={(e) => setNotes(e.target.value)}
-                    />
-                    <div>
-                        <img src="//cdn.weatherapi.com/weather/64x64/day/176.png" alt="day 1 weather forecast icon"/>
-                    </div>
-                    <div className="card-footer text-muted">
-                        <button type="submit" className="btn btn-success">Update Lead Info</button>
-                    </div>
-                    {/* Radio buttons copied from UpdateUser to modify to select Estimator */}
-                    {/* Will need to do a User.find({level = "Estimator" or whatever}), then */}
-                    {/* do a estimators.map((estimator)=>{}) to create radio buttons with  */}
-                    {/* estimator's name and User._id (for value) */}
-                
-                    {/* <div>
-                    <input type="radio" value="Admin"
-                        onChange={setLevel} name="level"/>
-                    <label htmlFor="level">Admin</label>
-                    <input type="radio" value="Estimator"
-                        onChange={setLevel} name="level"/>
-                    <label htmlFor="level">Estimator</label>
-                    <input type="radio" value="Foreman"
-                        onChange={setLevel} name="level"/>
-                    <label htmlFor="level">Foreman</label>
-                    <input type="radio" value="Helper"
-                        onChange={setLevel} name="level"/>
-                    <label htmlFor="level">Helper</label>
-                    </div> */}
-                </form>
-                <button className="btn btn-danger" onClick={deleteThisLead}>Delete this Lead</button>
             </div>
         </div>
     );

@@ -32,35 +32,31 @@ const Navigation = () => {
                         <li className="nav-item active">
                             <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
                         </li>
-                        <li className="nav-item">
+                        <li className="nav-item active">
                             <a className="nav-link" href="/leads">Leads</a>
                         </li>
-                        <li className="nav-item">
+                        <li className="nav-item active">
                             <a className="nav-link" href="/projects">Projects</a>
                         </li>
-                        <li className="nav-item">
+                        <li className="nav-item active">
                             <a className="nav-link" href="/appointments">Appointments</a>
                         </li>
-                        <li className="nav-item">
+                        <li className="nav-item active">
                             <a className="nav-link" href="/admin/">Admin</a>
                         </li>
                         { !userLoggedIn && 
-                            <div>
-                                <div>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="/api/auth/signup">Signup</a>
+                            <div id="navbarSignupLoginDiv">
+                                    <li className="nav-item active">
+                                        <a className="nav-link btn btn-success" href="/api/auth/signup">Signup</a>
                                     </li>
-                                </div>
-                                <div>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="/api/auth/login">Login</a>
+                                    <li className="nav-item active">
+                                        <a className="nav-link btn btn-success" href="/api/auth/login">Login</a>
                                     </li>
-                                </div>
                             </div>
                         }
                         { userLoggedIn &&
                             <div>
-                                <li className="nav-item">
+                                <li className="nav-item active">
                                     <a className="nav-link" href="/api/auth/logout">Logout</a>
                                 </li>
                             </div>

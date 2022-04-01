@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const service = axios.create({
-    // baseURL: "http://localhost:5005",
-    baseURL: "https://first-line-of-da-fence.herokuapp.com",
+    baseURL: "http://localhost:5005",
+    // baseURL: "https://first-line-of-da-fence.herokuapp.com",
     withCredentials: true,
 });
 

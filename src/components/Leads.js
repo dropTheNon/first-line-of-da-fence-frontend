@@ -56,7 +56,7 @@ const Leads = () => {
                 <h6 className="welcomeUsersName">Welcome back, {user.name}!</h6>
             </div>
             <h2>Leads page</h2>
-            <Link to="/leads/create" className="btn btn-success">Create New Lead</Link>
+            <Link to="/leads/create" id="createNewLeadBtn" className="btn btn-success">Create New Lead</Link>
             <div className="cardsContainer">
                 <div className="row">
 

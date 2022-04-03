@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import AuthService from './Auth';
 
 const Login = () => {
-    const [username, setUserName] = React.useState("NextTest");
-    const [password, setPassword] = React.useState("Password123!");
+    const [username, setUserName] = React.useState("");
+    const [password, setPassword] = React.useState("");
 
     let navigate = useNavigate();
 

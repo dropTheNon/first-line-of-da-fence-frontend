@@ -14,7 +14,6 @@ const Leads = () => {
     React.useEffect(() => {
         AuthService.getAllLeads()
         .then((results) => {
-            console.log(results);
             if (results.leadsFromDB) {
                 setAllLeads(results.leadsFromDB);
             }
@@ -27,7 +26,6 @@ const Leads = () => {
     React.useEffect(() => {
         AuthService.isLoggedIn()
             .then((result) => {
-                console.log("result: ", result.user);
                 if (result.user) {
                     setUser(result.user);
                 }

@@ -9,15 +9,15 @@ const service = axios.create({
 const AuthService = {
 
     // #######  matching auth.routes.js routes #######
-    signup: (username, password, name) => {
+    signup: (username, password, name, level) => {
         return service
         .post("/api/auth/signup", {
             username: username,
             password: password,
             name: name,
+            level: level
         })
         .then((results) => {
-            console.log(results.data);
             return results.data;
         });
     },
